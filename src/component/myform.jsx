@@ -5,29 +5,30 @@ import "./myform.css";
 import { useState } from "react";
 
 const Myform = () => {
-  const [first, setFirst] = useState("");
-  const [last, setLast] = useState("");
-  const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
-
-  // const
+  const [address, setAddress] = useState({
+    first: "",
+    last: "",
+    email: "",
+    password: "",
+  });
 
   const handle = (e) => {
+    setAddress({ ...address, [e.target.name]: e.target.value });
+  };
+
+  const submit = (e) => {
     e.preventDefault();
-    console.log(`
-    my first name is ${first} 
-    my last name is ${last} 
-    my email is ${email} 
-    my password is ${pass}`);
+    console.log(address);
   };
 
   return (
-    <Form onSubmit={handle}>
+    <Form onSubmit={submit}>
       <Form.Group className="mb-3">
         <Form.Label>First name</Form.Label>
         <Form.Control
           type="firstname"
-          onChange={(e) => setFirst(e.target.value)}
+          name="first"
+          onChange={(e) => handle(e)}
           placeholder="Enter first name"
         />
       </Form.Group>
@@ -35,7 +36,8 @@ const Myform = () => {
         <Form.Label>Last name</Form.Label>
         <Form.Control
           type="lastname"
-          onChange={(e) => setLast(e.target.value)}
+          name="last"
+          onChange={(e) => handle(e)}
           placeholder="Enter last name"
         />
       </Form.Group>
@@ -43,7 +45,8 @@ const Myform = () => {
         <Form.Label>Email</Form.Label>
         <Form.Control
           type="email"
-          onChange={(e) => setEmail(e.target.value)}
+          name="email"
+          onChange={(e) => handle(e)}
           placeholder="Enter email"
         />
       </Form.Group>
@@ -51,8 +54,9 @@ const Myform = () => {
         <Form.Label>Password</Form.Label>
         <Form.Control
           className="mb-3"
+          name="password"
           type="password"
-          onChange={(e) => setPass(e.target.value)}
+          onChange={(e) => handle(e)}
           placeholder="Password"
         />
       </Form.Group>
